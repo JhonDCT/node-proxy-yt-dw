@@ -16,9 +16,8 @@ app.post('/download', async (req: Request, res: Response) => {
     const { url } = req.body;
     if (!url) res.send({ error: 'not found url' });
 
-    const qs = new URLSearchParams({ url: String(url) }).toString();
-    const http = await fetch(`${api}/download${qs}`);
-    const data = await http.json();
+    const http = await fetch(`${api}/download?url=${url}`);
+    const data = await http.text();
 
     res.send(data);
 });
