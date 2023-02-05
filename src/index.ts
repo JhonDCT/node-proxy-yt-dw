@@ -18,16 +18,16 @@ app.post('/download', async (req: Request, res: Response) => {
 
     const http = await fetch(`${api}/download?url=${url}`);
     const data = await http.text();
+    const path = data.replace('/files/', '');
 
-    res.send({ path: data });
+    res.send({ path });
 });
 
 app.get('/download-file', async (req: Request, res: Response) => {
     const { name } = req.query;
     if (!name) res.send({ error: 'not found name' });
 
-    const qs = new URLSearchParams({ path: String(name) }).toString();
-    const http = await fetch(`${api}/file${qs}`);
+    const http = await fetch(`${api}/file?${name}`);
     const text = await http.text();
 
     const download = Buffer.from(text, 'base64');
