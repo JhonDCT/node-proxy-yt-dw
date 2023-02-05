@@ -19,7 +19,7 @@ app.post('/download', async (req: Request, res: Response) => {
     const http = await fetch(`${api}/download?url=${url}`);
     const data = await http.text();
 
-    res.send(data);
+    res.send({ path: data });
 });
 
 app.get('/download-file', async (req: Request, res: Response) => {
